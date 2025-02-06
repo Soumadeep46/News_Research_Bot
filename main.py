@@ -10,9 +10,9 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
 
 from dotenv import load_dotenv
-load_dotenv()  # take environment variables from .env (especially openai api key)
+load_dotenv()
 
-st.title("RockyBot: News Research Tool 📈")
+st.title("News Research Tool")
 st.sidebar.title("News Article URLs")
 
 urls = []
@@ -55,7 +55,6 @@ if query:
             vectorstore = pickle.load(f)
             chain = RetrievalQAWithSourcesChain.from_llm(llm=llm, retriever=vectorstore.as_retriever())
             result = chain({"question": query}, return_only_outputs=True)
-            # result will be a dictionary of this format --> {"answer": "", "sources": [] }
             st.header("Answer")
             st.write(result["answer"])
 
